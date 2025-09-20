@@ -89,7 +89,7 @@ bibliography: references.bib
 **You can use any combination of these in the format** `{r, option1=value1, option2=value2}`**.**
 
 |  |  |
-|----|----|
+|------------------------------------|------------------------------------|
 | `{eval=FALSE}` | Show code but do **NOT run** |
 | `{echo=FALSE}` | **Hide code** but still run and show output |
 | `{results="hide"}` | **Hide output** but still show code and run |
@@ -383,7 +383,7 @@ Click the [**Git icon**]{.underline} drop-down menu in the very top bar of your 
 
 Check the boxes `☑` for all of the changes that you want to commit. Add a clear, succinct commit message. Click the `Commit` button.
 
-Click the `⬆Push` button in the top right corner of the Git window pane.
+Click the `⬆Push` button in the top right corner of the Git window pane *([optional]{.underline}: can `⬇Pull` too just to check local branch is up to date with remote)*.
 
 ## Publish to GitHub
 
