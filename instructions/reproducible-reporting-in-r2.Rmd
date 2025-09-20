@@ -1,14 +1,17 @@
 ---
-# title: "Reproducible Reporting in R"
-# author: "J.Blondeau"
+title: "Reproducible Reporting in R"
+author: "J.Blondeau"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    css: style.css
 bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
 ```
 
 # Week 5 Exercises {.tabset}
@@ -46,7 +49,11 @@ At a minimum, your document should have examples on..
 
 ------------------------------------------------------------------------
 
-Here are a few helpful resources: <br> [pimp my r markdown](https://holtzy.github.io/Pimp-my-rmd/) <br> [R markdown: definitive guide](https://bookdown.org/yihui/rmarkdown/) <br> [More markdown syntax, including LaTeX](https://ashki23.github.io/markdown-latex.html)
+> **Here are a few helpful resources:**
+>
+> -   [pimp my r markdown](https://holtzy.github.io/Pimp-my-rmd/)
+> -   [R markdown: definitive guide](https://bookdown.org/yihui/rmarkdown/)
+> -   [More markdown syntax, including LaTeX](https://ashki23.github.io/markdown-latex.html)
 
 ## RMarkdown to Github Website
 

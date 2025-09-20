@@ -1,0 +1,201 @@
+/* ============================
+   BASE STYLES (style.css)
+   ============================ */
+
+/* --- Global body text --- */
+html, body {
+  background-color: white !important;
+  color: black !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+}
+
+/* Paragraphs & lists */
+body p, body li,
+.tab-pane p, .tab-pane li {
+  font-size: .98em !important;
+  line-height: 1.5 !important;
+  color: black !important;
+}
+
+/* ============================
+   INLINE CODE & CODE BLOCKS
+   ============================ */
+
+code,
+.tab-pane code {
+  color: #5f78fa !important;
+  font-size: 0.85em !important;
+  background: none !important;
+}
+
+pre code,
+div.sourceCode pre code {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  color: #5c02f7 !important;
+  font-size: 1em !important;
+  background-color: #f7f7f7 !important;
+  border: 0.25px solid #b5b5b5 !important;
+  padding: 8px 8px !important;
+}
+
+/* Syntax tokens */
+pre code .c, pre code .co, pre code .com, pre code .hl.com {
+  color: #a2a2e0 !important;      /* comments */
+  font-style: italic !important;
+}
+pre code .st, pre code span.s, code span.s {
+  color: #0f6475 !important;      /* strings */
+}
+pre code .dv, pre code .fl {
+  color: #cc97f0 !important;      /* numbers */
+}
+pre code .kw, pre code .k {
+  color: #630358 !important;      /* keywords */
+  font-weight: bold !important;
+}
+pre code .fu, pre code .nf {
+  color: #ff4ddb !important;      /* functions */
+  font-weight: bold !important;
+}
+
+/* Force ALL text inside output to gray */
+.cell-output pre code,
+.cell-output-stdout pre code,
+.cell-output-display pre code,
+.cell-output pre,
+.cell-output-stdout pre,
+.cell-output-display pre {
+  color: #707070 !important;
+  font-size: 0.8em !important;
+  background-color: #f7f7f7 !important;
+}
+
+/* Override ANSI-colored text (used in console output) */
+.cell-output span[class^="ansi-"] {
+  color: #707070 !important;
+  font-size: 0.8em !important;
+  background-color: #f7f7f7 !important;
+}
+
+/* ============================
+   PINK LINKS – ONLY IN CONTENT
+   ============================ */
+
+/* All links EXCEPT tab buttons */
+main :not(.nav-link) > a {
+  color: #f596ff !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+
+main :not(.nav-link) > a:hover {
+  text-decoration: underline !important;
+}
+
+/* ============================
+   TABS – FULL SUPPORT FOR QUARTO
+   ============================ */
+
+.nav-tabs {
+  border-bottom: 2px solid #1602ad !important;
+  margin-bottom: 1em !important;
+}
+
+.nav-tabs .nav-item .nav-link {
+  color: black !important;
+  background-color: white !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  border: 1px solid #1602ad !important;
+  border-bottom: none !important;
+  border-radius: 6px 6px 0 0 !important;
+  padding: 6px 12px !important;
+  margin-right: 6px !important;
+  font-size: 14px !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+}
+
+.nav-tabs .nav-item .nav-link:hover {
+  background-color: #e6edff !important;
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  background-color: #e6edff !important;
+  color: black !important;
+  font-weight: bold !important;
+  border-color: #1602ad #1602ad white !important;
+  border-bottom: 2px solid white !important;
+}
+
+/* Tab content container */
+.tab-content .tab-pane {
+  border: 1px solid #ddd !important;
+  border-top: none !important;
+  background: white !important;
+  border-radius: 0 0 6px 6px !important;
+  padding: 1em !important;
+}
+
+/* ============================
+   CALLOUTS
+   ============================ */
+
+.callout-note, .callout-warning, .callout-tip, .callout-important {
+  padding: 0.5em 0.5em !important;
+  border-left: 5px solid !important;
+  border-radius: 7px !important;
+  margin: 0.5em 0.5 !important;
+  font-size: 1.25em !important;
+}
+
+.callout-note {
+  background: #c5d5fc !important;
+  border-color: #3b72ff !important;
+  color: #111 !important;
+}
+.callout-note strong { color: #1602ad !important; }
+
+.callout-warning {
+  background: #fff8db !important;
+  border-color: #dbb100 !important;
+  color: #453301 !important;
+}
+.callout-warning strong { color: #ffd62b !important; }
+
+.callout-tip {
+  background: #f4eaff !important;
+  border-color: #8e5cd6 !important;
+  color: #2e174d !important;
+}
+.callout-tip strong { color: #5a2ca0 !important; }
+
+.callout-important {
+  background: #ffe6f0 !important;
+  border-color: #ff4da6 !important;
+  color: #4a0e2e !important;
+}
+.callout-important strong { color: #cc0066 !important; }
+
+/* ============================
+   TABLES & IMAGES
+   ============================ */
+
+img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.table-responsive, .datatables {
+  overflow-x: auto !important;
+}
+
+table, .table, table th, table td {
+  font-size: 0.9em !important;
+  color: black !important;
+}

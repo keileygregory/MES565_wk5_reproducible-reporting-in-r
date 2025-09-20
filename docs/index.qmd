@@ -1,0 +1,403 @@
+---
+title: "Index Quatro Document"
+subtitle: "MES 565: Week 5"
+author: "Keiley Gregory"
+date: today
+format:
+  html:
+    css: style.css
+    theme: flatly
+    highlight-style: tango
+    html-math-method: mathjax
+    equation-numbering: true
+execute:
+  working-directory: none
+bibliography: references.bib
+---
+
+**Related documents from Jeremiah:**
+
+-   `~/MES565/MES565_wk5_/instructions/reproducible-reporting-in-r.qmd`
+-   ``` ~/MES565/MES565_wk5_/``instructions/reproducible-reporting-in-r2.Rmd ```
+
+*Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.*
+
+------------------------------------------------------------------------
+
+# **YAML Header**
+
+::: panel-tabset
+## **YAML General Information**
+
+Every R Markdown (`.Rmd`) and Quarto (`.qmd`) document starts with a YAML header, enclosed in triple-dashes (`---`).
+
+**This section contains metadata for your document.**
+
+-   `title` and `author`: Basic document information that appears at the top of your report.
+-   `bibliography`: Path to a `.bib` file for managing citations.
+
+## **YAML for Quatro Documents**
+
+-   `subtitle`: Additional title qualifier option available in Quatro.
+-   `date`: Use `today` to automatically use today's date.
+-   `format`: The output format (common options include `html`, `pdf`, `docx`, and `revealjs` for presentations).
+
+``` yaml
+---
+title: "Quatro Doc Title"
+subtitle: "Subtitle"
+author: "Keiley Gregory"
+date: today
+format:
+  html:
+    css: style.css
+    theme: flatly
+    highlight-style: tango
+bibliography: references.bib
+---
+```
+
+## **YAML for R Markdown Documents**
+
+-   `date`: Use `"r Sys.Date()"` to automatically use today's date.
+-   `output`: The output format (common options include `html`, `pdf`, `docx`, and `revealjs` for presentations).
+
+``` yaml
+---
+title: "R Markdown Doc Title"
+author: "Keiley Gregory"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    css: style.css
+    theme: flatly
+    highlight-style: tango
+bibliography: references.bib
+---
+```
+:::
+
+------------------------------------------------------------------------
+
+# **HTML Code Blocks**
+
+:::: panel-tabset
+## **Executable Code Cell Options**
+
+*Resources:* [*Quatro HTML code*](https://quarto.org/docs/output-formats/html-code.html)*, [Quatro computations](https://quarto.org/docs/computations/r.html)*
+
+**You can use any combination of these in the format** `{r, option1=value1, option2=value2}`**.**
+
+|  |  |
+|----|----|
+| `{eval=FALSE}` | Show code but do **NOT run** |
+| `{echo=FALSE}` | **Hide code** but still run and show output |
+| `{results="hide"}` | **Hide output** but still show code and run |
+| `{include=FALSE}` | **Hide code and output** but still run |
+| `{warning=FALSE}` | **Hide warning messages** in output |
+| `{message=FALSE}` | **Hide start-up messages** (like `“Loaded tidyverse”`) |
+| `{fig.show="hold"}` | Show **plots at end of chunk** *(default shows plots inline)* |
+| `{fig.show="hide"}` | **Hide plots** but still run code *(default shows plots inline)* |
+| `{fig.cap}` | **Add caption** below plot |
+| `{fig.align="left"/="right"}/ ="center"}` | **Align plots** on the left, right, or center |
+| `{fig.width=}, {fig.height=}` | Set plot **size in inches** |
+| `{cache}` | **Save results** to avoid re-running chunks (speed up documents with slow computations) |
+| `{collapse=TRUE}` | Show code and output in the **same continuous block** *(default shows code and output as 2 separate blocks)* |
+
+## **Working Directory**
+
+```{r, results="hide", message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+**View current working directory:**
+
+```{r}
+getwd()
+```
+
+**Set** **working directory for [scripts (entire)]{.underline} or for [only current code chunk]{.underline} in Markdown doc** *(`density <- read_csv()` code in next tab will [NOT]{.underline} work)*:
+
+```{r}
+setwd("/Users/keileygregory/MES565/MES565_wk5_reproducible-reporting-in-r") # wd will be reset when the chunk is finished running.
+```
+
+**Set** **working directory for [all code chunks]{.underline} in Markdown doc** *(`density <- read_csv()` code in next tab [WILL]{.underline} work)*:
+
+```{r}
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+::: {.callout-important appearance="simple"}
+**Important!** In order for this knitr code to work, you **must include "**`execute:` \> `working-directory: none`**" in your YAML header!** (otherwise, it will default your wd to the folder where your Markdown doc is located)
+:::
+
+-   `knitr` package is part of `tidyverse` that lets you set global options for code chunks.
+-   `root.dir = ...` is the specific option you're setting for the wd. By default, Quarto sets the working directory to the folder where the `.qmd` file lives (aka `~/docs`). Overriding `root.dir` makes every chunk run from a folder you choose (e.g., the project root).
+-   `rprojroot::find_rstudio_root_file()` uses the `rprojroot` package to look for an `.Rproj` file or `.git` folder in your current project hierarchy, and returns the absolute path to that project root folder.
+
+## **Reading in Data**
+
+If the data file(s) you want to load are saved [**INSIDE**]{.underline} the folder for the R Project that you currently have open, you can use **relative paths**.
+
+```{r}
+density <- read_csv("data/PSU_Fish_Density.csv") # output message just tells you column names and data types of each
+```
+
+If the data file(s) you want to load are saved [**OUTSIDE**]{.underline} your current R Project folder, you have to use **absolute paths**.
+
+```{r}
+taxa <- read_csv("/Users/keileygregory/MES565/MES565_wk4_advanced-wrangling-and-joins/data/taxonomic_data.csv") # output message just tells you column names and data types of each
+```
+
+## **Code Formatting Tips**
+
+If you want to **preserve the raw code format** in therendered HTML or PDF document, [**surround thesection of code with \` \`**]{.underline}.
+
+*An example of this would be wanting to keep `$\frac{a}{b}$` format in the rendered doc instead* $\frac{a}{b}$ *format.*
+::::
+
+------------------------------------------------------------------------
+
+# **Tabsets**
+
+:::: panel-tabset
+## **Tabsets in Markdown**
+
+You can create **tabbed sections** to organize content like plots, tables, and text. This is especially useful in HTML reports.
+
+*Resources: [Quatro tabsets](https://quarto.org/docs/output-formats/html-basics.html#tabsets)*
+
+::: {.callout-important appearance="simple"}
+**Warning!** Content within tabsets is not visible when rendering to HTML and viewing via browser, but **NOT visible printing to PDF** because only the first tab is shown in the PDF output. 
+:::
+
+## Creating a Tabset
+
+Create a tabset via a markdown div with the class name panel-tabset (`::: {.panel-tabset}`**).** Each top-level heading within the div creates a new tab.
+
+**The basic structure for how to create a tabset in Source view is below:**
+
+-   *the `Section Title` is the title for all tabs in this section*
+-   *the `set of dots` marks the beginning and end of the tabs in that section.*
+
+```{=html}
+<br>
+# Section Title
+<br>
+<br>
+::: panel-tabset
+<br>
+<br>
+## Tab 1 Title
+<br>
+<br>
+Tab 1 text and contents
+<br>
+<br>
+## Tab 2 Title
+<br>
+<br>
+Tab 2 text and contents
+<br>
+<br>
+:::
+<br>
+```
+::::
+
+------------------------------------------------------------------------
+
+# **Formulas with LaTeX**
+
+::::: panel-tabset
+## LaTeX Syntax
+
+**You can write mathematical equations in Quarto documents using LaTeX syntax.**
+
+*LaTeX format works in both HTML and PDF outputs. For HTML, [ensure your YAML has]{.underline}:*
+
+``` yaml
+---
+format:
+  html:
+    html-math-method: mathjax # renders LaTeX in HTML
+    equation-numbering: true # turns on numbering for equations
+---
+```
+
+Common LaTeX syntax includes:
+
+|               |                           |                         |
+|---------------|---------------------------|-------------------------|
+| **Type**      | **Code**                  | **Output**              |
+| Fractions     | `$\frac{a}{b}$`           | $\frac{a}{b}$           |
+| Subscripts    | `\$x_i$`                  | $x_i$                   |
+| Superscripts  | `\$x^2$`                  | $x^2$                   |
+| Greek letters | `$\alpha, \beta, \gamma$` | $\alpha, \beta, \gamma$ |
+| Summation     | `$\sum_{i=1}^n x_i$`      | $\sum_{i=1}^n x_i$      |
+| Integral      | `$\int_0^1 f(x)\, dx$`    | $\int_0^1 f(x)\, dx$    |
+
+## Inline Math
+
+Use [**single**]{.underline} `$...$` **inside text** to display LaTeX math equations **inline with text**.
+
+*For example, `The area of a circle is $A = \pi r^2$.` renders as:*
+
+-   The area of a circle is $A = \pi r^2$.
+
+## Display Math
+
+Use [**double**]{.underline} `$$...$$` **inside text** to display LaTeX math as **centered, standalone** equations.
+
+*For example, `The mass-energy equivalence principle is $$E = mc^2$$` renders as:*
+
+-   The mass-energy equivalence principle is \$\$E = mc\^2\$\$
+
+## Numbered Equations
+
+Numbered equations must be in centered display format, created by adding `$$...$$` to the beginning and end of the equation.
+
+**Ordered numbering** **can be added to equations by** [**attaching**`{#eq-line}`**at the end of the equation**]{.underline} **after the final** `$$`**.** The `#eq-` assigns a label to the equation, and the `line` sets the label to automatic numbering.
+
+*For example, the following code:*
+
+``` markdown
+$$
+y = mx + b
+$$ {#eq-line}
+```
+
+*renders as:*
+
+$$
+y = mx + b
+$$ {#eq-line}
+
+## Labeled Equations
+
+**Custom labels** **can be added to equations by** [**attaching**`{#eq-labelname}`**at the end of the equation**]{.underline} **after the final** `$$`**.** The `#eq-` assigns a label to the equation, and the `labelname` sets the label to a custom name.
+
+::: {.callout-important appearance="simple"}
+**Important!** Labels must be [**unique**]{.underline} **(not repeated)**.
+:::
+
+*For example, the following code:*
+
+``` markdown
+$$
+A = \pi r^2
+$$ {#eq-circle}
+```
+
+*renders as:*
+
+$$
+A = \pi r^2
+$$ {#eq-circle}
+
+::: {.callout-tip appearance="simple" icon="false"}
+**Note!** The label is **not printed visibly** in your document (only the equation number). The labels are just an [internal handle you can use for referencing]{.underline}.
+:::
+
+## Referencing Equations
+
+**Numbered and/or labeled equations can be referenced throughout the text of the Markdown document using** [`@eq-label`]{.underline}**.** The referenced equations will appear as **hyperlinks that display the equation** when you hover the cursor over them.
+
+*For example, you can write*
+
+-   "As shown in Equation @eq-circle, the area depends on the radius."
+
+*or*
+
+-   "Notice how Equation @eq-line and Equation @eq-circle are both numbered and referenced automatically."
+:::::
+
+------------------------------------------------------------------------
+
+# **Citations**
+
+::: panel-tabset
+## Citations Workflow
+
+**Both Quarto and R Markdown documents have built-in support for citations.**
+
+Create a [**bibliography file (**`references.bib`**)**]{.underline} where you will add your references in a standard format *(see "Bib Files" tab)*.
+
+In order to create hyperlinked in-text citations from the references in your `references.bib` file, [**ensure your YAML header includes the following line**]{.underline} at the very bottom:
+
+---
+bibliography: references.bib
+---
+
+## Bib Files
+
+**Your** `references.bib` **file contains entries for each source in a standard format *(below)***, where the **first line (**`authorYYYY`**) is unique citation key** that will be used for in-text citations.
+
+``` markdown
+@article{authorYYYY,
+  title={Article title},
+  author={LastName, FirstInitial and LastName, FirstInitial and LastName, FirstInitial and etc...},
+  year={YYYY}
+  month = {MM},
+    date = {YYYY-MM-DD},
+    journal = {Journal Name},
+    pages = {###--###},
+    volume = {###},
+    number = {#},
+    doi = {doicode},
+    url = {http://dx.doi.org/doicode},
+    langid = {en}
+}
+```
+
+## In-Text Citations
+
+You can [**use**`[@authorYYYY]`**to create in-text citations**]{.underline} in your rendered Markdown document that will be displayed as **hyperlinks that show the full bibliography citation with a clickable doi** link when you hover the cursor over them.
+
+Additionally, **a [full reference list]{.underline} will be automatically generated at the end of your document** for all of the references used as in-text citations**.**
+
+*For example, if you write*
+
+-   "This was shown in a recent report `[@heidmann2024]`."
+
+*in the text of your Markdown document, the rendered output will look like*
+
+-   "This was shown in a recent report [@heidmann2024]."
+:::
+
+------------------------------------------------------------------------
+
+# **Publishing Markdown Documents**
+
+*Place your Quatro document (`.qmd`) and the associated `style.css` and `references.bib` files in a subfolder (`~/docs`) within your main R Project folder.*
+
+::::: panel-tabset
+## Commit to Git
+
+::: {.callout-important appearance="simple"}
+**Important!** Make sure to **render** your `.qmd` document (so that it creates the `.html` file) [**before**]{.underline} pushing to Git!
+:::
+
+Click the [**Git icon**]{.underline} drop-down menu in the very top bar of your R Studio window \> click the `Commit...` button.
+
+Check the boxes `☑` for all of the changes that you want to commit. Add a clear, succinct commit message. Click the `Commit` button.
+
+Click the `⬆Push` button in the top right corner of the Git window pane.
+
+## Publish to GitHub
+
+**Go to [github.com/keileygregory](https://github.com/keileygregory)** \> select **project repository** ([.../MES565_wk5_reproducible-reporting-in-r](https://github.com/keileygregory/MES565_wk5_reproducible-reporting-in-r)).
+
+Click the `⚙ Settings` button in the top bar of your GitHub repo page \> go to the `Pages`tab. Under the 'Build and deployment' section, select the following options:
+
+-   **Source:** `Deploy from a branch`
+
+-   **Branch:** `𓐨 master` \> `📁 /docs`
+
+Click `Save`.
+
+::: {.callout-tip appearance="simple" icon="false"}
+After a few minutes, refresh the setting page and Github will **host your Quarto (or R Markdown) document with its own URL**!
+:::
+:::::

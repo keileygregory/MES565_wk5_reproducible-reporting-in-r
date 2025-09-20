@@ -1,0 +1,43 @@
+---
+title: "Creating Maps"
+author: "J.Blondeau"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+GIS data <br>
+
+- [ ] &nbsp;STEER_HabMap
+- [ ] &nbsp;MooringLocations
+- [ ] &nbsp;STEER_boundary
+- [ ] &nbsp;STEER_bathy
+
+------------------------------------------------------------------------
+
+This week you will create a map for publication in a DPNR pamphlet showing the locations of the proposed moorings (last week's exercise). You should already have all the layers needed for the map.
+
+Your map will need to include the following features..
+
+1.  Main map
+
+2.  Map inset
+
+3.  Graticules (Lat-Lon marks or grid lines). Use decimal degrees
+
+4.  Scale bar
+
+5.  North Arrow
+
+6.  Title
+
+7.  Legend
+
+8.  Annotations
+
+9.  Finally, export the map as a JPEG
